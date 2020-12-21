@@ -10,9 +10,10 @@ export default makeStyles((theme) => ({
     right: 0,
     zIndex: "-1",
   },
+
   highlightImage: {
     marginTop: "2.8rem",
-    marginLeft: "9rem",
-    width: "580px",
+    marginLeft: "14rem",
+    width: "540px",
   },
 }));

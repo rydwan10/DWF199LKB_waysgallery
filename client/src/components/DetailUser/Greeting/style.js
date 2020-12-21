@@ -35,6 +35,6 @@ export default makeStyles((theme) => ({
     fontFamily: "Nunito",
     fontWeight: "bold",
     marginBottom: "3rem",
-    fontSize: "3rem",
+    fontSize: "2.4rem",
   },
 }));

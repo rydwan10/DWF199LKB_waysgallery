@@ -1,12 +1,4 @@
-import {
-  Card,
-  CardContent,
-  CardMedia,
-  CardActionArea,
-  Typography,
-  Grid,
-  makeStyles,
-} from "@material-ui/core";
+import { Card, CardMedia, CardActionArea, makeStyles } from "@material-ui/core";
 
 function Item({ data }) {
   const useStyles = makeStyles({
@@ -34,8 +26,6 @@ function Item({ data }) {
     >
       <CardActionArea onClick={() => alert("clicked")}>
         <CardMedia className={classes.media} image={data.attachment} />
-        {/* <CardContent>
-          </CardContent> */}
       </CardActionArea>
     </Card>
   );

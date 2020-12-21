@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
-
+import { useState, useContext } from "react";
+import { AppContext } from "../../context/AppContext";
+import { LOGOUT } from "../../constant/ActionTypes";
 import {
   Container,
   Grid,
@@ -13,18 +14,16 @@ import { withStyles } from "@material-ui/core/styles";
 
 // icons
 import navIcon from "../../assets/navIcon.svg";
-import rydwan from "../../assets/dw-profile-picture.png";
 import logout from "../../assets/icons/logout.svg";
 import orderIcon from "../../assets/icons/orderIcon.svg";
 import profileIcon from "../../assets/icons/profileIcon.svg";
 
 import MenuItem from "@material-ui/core/MenuItem";
 
-import Loading from "../Loading/Loading";
-
 import makeStyles from "./style";
 
 function Navbar() {
+  const [state, dispatch] = useContext(AppContext);
   const StyledMenu = withStyles({
     paper: {
       backgroundColor: "#ffffff",
@@ -59,6 +58,9 @@ function Navbar() {
 
   const handleLogout = () => {
     setAnchorEl(null);
+    dispatch({
+      type: LOGOUT,
+    });
   };
 
   return (
@@ -90,20 +92,30 @@ function Navbar() {
             </Grid>
             <Grid item container alignItems="center" justify="flex-end">
               <Grid item>
-                <Button
-                  variant="contained"
-                  size="medium"
-                  className={classes.uploadButton}
-                >
-                  Upload
-                </Button>
+                <Link style={{ textDecoration: "none" }} to="/add-post">
+                  <Button
+                    variant="contained"
+                    size="medium"
+                    className={classes.uploadButton}
+                  >
+                    Upload
+                  </Button>
+                </Link>
               </Grid>
               <Grid item>
-                <Avatar
-                  onClick={handleClick}
-                  className={classes.bgAvatar}
-                  src={rydwan}
-                />
+                {state.user ? (
+                  <Avatar
+                    onClick={handleClick}
+                    className={classes.bgAvatar}
+                    src={`http://localhost:5000/uploads/${state.user.avatar}`}
+                  />
+                ) : (
+                  <Avatar
+                    onClick={handleClick}
+                    className={classes.bgAvatar}
+                    src={`http://localhost:5000/uploads/avatar.jpg`}
+                  />
+                )}
               </Grid>
             </Grid>
           </Grid>
@@ -116,7 +128,7 @@ function Navbar() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <Link className={classes.link} to="/profile">
+        <Link className={classes.link} to={`/user/${state.user.id}`}>
           <MenuItem
             style={{
               color: "#000000",
@@ -135,7 +147,7 @@ function Navbar() {
           </MenuItem>
         </Link>
 
-        <Link className={classes.link} to="/pay">
+        <Link className={classes.link} to="/transactions">
           <MenuItem
             style={{
               color: "#000000",

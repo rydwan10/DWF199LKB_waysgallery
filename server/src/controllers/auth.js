@@ -45,6 +45,7 @@ exports.register = async (req, res) => {
       fullName,
       email,
       status: "not active",
+      avatar: "avatar.jpg",
       role: "user",
       password: hashedPassword,
     });
@@ -172,8 +173,8 @@ exports.checkAuth = async (req, res) => {
         id: user.id,
         name: user.fullName,
         email: user.email,
-        role: user.role,
-        status: user.status,
+        avatar: user.avatar,
+        greeting: user.greeting,
       },
     });
   } catch (err) {

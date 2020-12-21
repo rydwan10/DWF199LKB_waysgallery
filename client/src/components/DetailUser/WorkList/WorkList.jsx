@@ -1,9 +1,8 @@
-import { Grid } from "@material-ui/core";
 import List from "./List/List";
-const WorkList = () => {
+const WorkList = ({ user }) => {
   return (
     <div style={{ margin: "0 auto", height: "120vh" }}>
-      <List />
+      <List user={user} />
     </div>
   );
 };

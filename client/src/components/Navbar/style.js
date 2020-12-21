@@ -21,5 +21,6 @@ export default makeStyles((theme) => ({
     fontFamily: "Nunito",
     fontSize: "1rem",
     marginRight: "1rem",
+    textDecoration: "none",
   },
 }));

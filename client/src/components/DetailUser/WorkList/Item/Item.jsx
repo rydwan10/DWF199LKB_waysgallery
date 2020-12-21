@@ -24,10 +24,11 @@ function Item({ data }) {
       }}
       className={classes.root}
     >
-      <CardActionArea onClick={() => alert("clicked")}>
-        <CardMedia className={classes.media} image={data.attachment} />
-        {/* <CardContent>
-          </CardContent> */}
+      <CardActionArea>
+        <CardMedia
+          className={classes.media}
+          image={`http://localhost:5000/uploads/${data.image}`}
+        />
       </CardActionArea>
     </Card>
   );

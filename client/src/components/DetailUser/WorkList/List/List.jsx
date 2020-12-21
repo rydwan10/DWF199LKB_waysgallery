@@ -1,9 +1,8 @@
 import { Grid, Typography } from "@material-ui/core";
-import dummyData from "./dummyData";
 
 import Item from "../Item/Item";
 
-function List() {
+function List({ user }) {
   return (
     <>
       <Typography
@@ -15,12 +14,12 @@ function List() {
         }}
         variant="h5"
       >
-        Dave Mustaine's Works
+        {`${user.fullName}'s works`}
       </Typography>
       <Grid alignContent="center" spacing={3} container justify="center">
-        {dummyData.map((data) => (
-          <Item key={data.id} data={data} />
-        ))}
+        {!user.arts.length
+          ? "No works yet..."
+          : user.arts.map((data) => <Item key={data.id} data={data} />)}
       </Grid>
     </>
   );
