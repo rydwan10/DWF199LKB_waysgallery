@@ -95,7 +95,6 @@ function PostDetail() {
       if (response.status === 200) {
         setPost(response.data.data.post);
         setLoading(false);
-        console.log(post);
       }
     } catch (err) {
       if (err) {
@@ -107,6 +106,7 @@ function PostDetail() {
 
   useEffect(() => {
     getPost();
+    // eslint-disable-next-line
   }, []);
 
   return loading ? (
@@ -191,8 +191,9 @@ function PostDetail() {
       </div>
 
       <div className={classes.thumbnailPreviewContainer}>
-        {post.photos.map((photo) => (
+        {post.photos.map((photo, index) => (
           <img
+            key={index}
             className={classes.thumbnailPreview}
             src={`http://localhost:5000/uploads/${photo.image}`}
             alt="robox"

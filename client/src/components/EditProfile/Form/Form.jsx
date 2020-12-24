@@ -44,6 +44,7 @@ function Form() {
   };
   useEffect(() => {
     loadUser();
+    // eslint-disable-next-line
   }, [fetch]);
 
   const handleSave = async (e) => {

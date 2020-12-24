@@ -1,4 +1,4 @@
-import { Container, Grid } from "@material-ui/core";
+import { Container, Grid, Button } from "@material-ui/core";
 import Description from "./Description/Description";
 import ProjectImage from "./ProjectImage/ProjectImage";
 
@@ -26,6 +26,7 @@ function ViewProject() {
 
   useEffect(() => {
     getMyOrder();
+    // eslint-disable-next-line
   }, []);
   return loading ? (
     <Loading />
@@ -39,6 +40,18 @@ function ViewProject() {
           <Grid item xs={12} sm={6}>
             <Description description={data.description} />
           </Grid>
+          <Button
+            style={{
+              textTransform: "capitalize",
+              background: "#2FC4B2",
+              fontFamily: "Nunito",
+            }}
+            size="large"
+            variant="contained"
+            color="primary"
+          >
+            Download
+          </Button>
         </Grid>
       </Container>
     </div>

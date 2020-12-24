@@ -54,6 +54,7 @@ function Transactions() {
   useEffect(() => {
     getMyOrder();
     getMyOffer();
+    // eslint-disable-next-line
   }, [fetch]);
 
   const handleApprove = async (id) => {

@@ -47,6 +47,7 @@ function App() {
   };
   useEffect(() => {
     loadUser();
+    // eslint-disable-next-line
   }, []);
 
   return (

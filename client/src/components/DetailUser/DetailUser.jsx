@@ -37,6 +37,7 @@ function DetailUser() {
 
   useEffect(() => {
     getUserById();
+    // eslint-disable-next-line
   }, []);
 
   return loading ? (

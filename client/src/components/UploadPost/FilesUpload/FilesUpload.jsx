@@ -9,12 +9,13 @@ function File({ files, setFiles }) {
 
     // Fix later
     setFiles([...files, ...acceptedFiles]);
+    // eslint-disable-next-line
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
   });
 
-  console.log(files);
+  // console.log(files);
   return (
     <>
       <div {...getRootProps()}>
@@ -25,7 +26,7 @@ function File({ files, setFiles }) {
           <>
             <img
               src={UploadPlaceholder}
-              alt="image upload placeholder"
+              alt="upload placeholder"
               width="565px"
               htmlFor="single-file-upload"
             />

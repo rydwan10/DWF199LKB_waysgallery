@@ -1,7 +1,6 @@
 import Image from "./Image";
 import NoFile from "../../../assets/img/NoFile.png";
 function ImageBox({ files }) {
-  console.log(files);
   return (
     <div
       style={{

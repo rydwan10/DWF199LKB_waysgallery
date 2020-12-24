@@ -9,6 +9,7 @@ function File({ files, setFiles }) {
 
     // Fix later
     setFiles([...files, ...acceptedFiles]);
+    // eslint-disable-next-line
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,

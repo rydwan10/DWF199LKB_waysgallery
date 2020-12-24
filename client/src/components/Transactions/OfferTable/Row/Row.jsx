@@ -6,7 +6,13 @@ import makeStyles from "./style";
 import orderCancelIcon from "../../../../assets/icons/order-cancel.svg";
 import orderSuccessIcon from "../../../../assets/icons/order-success.svg";
 
-export default function Row({ row, index, handleApprove, handleCancel }) {
+export default function Row({
+  row,
+  index,
+  handleApprove,
+  handleCancel,
+  handleModal,
+}) {
   const classes = makeStyles();
   return (
     <>
@@ -18,7 +24,12 @@ export default function Row({ row, index, handleApprove, handleCancel }) {
           {row.orderedBy.fullName}
         </TableCell>
         <TableCell className={classes.tableCell} align="left">
-          {row.title}
+          <span
+            onClick={() => handleModal(row)}
+            style={{ color: "lightskyblue", cursor: "pointer" }}
+          >
+            {row.title}
+          </span>
         </TableCell>
         <TableCell className={classes.tableCell} align="left">
           {moment(row.startDate).format("D MMMM YYYY")}
