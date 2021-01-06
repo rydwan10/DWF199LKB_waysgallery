@@ -194,6 +194,9 @@ function HeroTitle() {
       } else if (input.password !== input.retypePassword) {
         setError(true);
         setErrorMessage(`Password and retype password doesn't match!`);
+      } else if (input.password.length < 6 || input.retypePassword.length < 6) {
+        setError(true);
+        setErrorMessage(`Password must more than 6 characters!`);
       } else {
         try {
           const body = JSON.stringify({ email, password, fullName });
@@ -203,14 +206,19 @@ function HeroTitle() {
             },
           };
           const response = await API.post("/register", body, config);
-
-          dispatch({
-            type: REGISTER,
-            payload: {
-              user: response.data.data,
-            },
-          });
+          if (response.status === 201) {
+            dispatch({
+              type: REGISTER,
+              payload: {
+                user: response.data.data,
+              },
+            });
+          }
         } catch (err) {
+          if (err.response.status === 400) {
+            setError(true);
+            setErrorMessage(`${err.response.data.message}`);
+          }
           console.log(err.response);
         }
       }
@@ -366,7 +374,6 @@ function HeroTitle() {
             Login
           </Button>
         </div>
-     
       </div>
     </>
   );

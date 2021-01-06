@@ -77,6 +77,13 @@ function Form() {
                 "Your order is created! Please wait until the user accept it",
             },
           });
+          setInput({
+            title: "",
+            description: "",
+            startProject: "",
+            endProject: "",
+            price: "",
+          });
         }
       } catch (err) {
         console.log(err.response);

@@ -35,6 +35,8 @@ export default makeStyles((theme) => ({
   userName: {
     fontFamily: "Nunito",
     fontSize: "1.2rem",
+    color: "#2FC4B2",
+    cursor: "pointer",
   },
 
   imagePreviewContainer: {
@@ -43,23 +45,33 @@ export default makeStyles((theme) => ({
     objectFit: "cover",
   },
 
-  imagePreview: {
-    width: "100%",
-  },
-
   thumbnailPreviewContainer: {
     marginTop: "1rem",
     overflow: "hidden",
-    objectFit: "cover",
     display: "flex",
     justifyContent: "center",
     alignItems: "flex-start",
+    height: "200px",
   },
 
   thumbnailPreview: {
     borderRadius: "6px",
     width: "145px",
     margin: ".5rem",
+    cursor: "pointer",
+    objectFit: "cover",
+  },
+
+  imagePreview: {
+    height: "100%",
+    width: "100%",
+    objectFit: "contain",
+  },
+
+  highlightContainer: {
+    width: "540px",
+    height: "500px",
+    margin: "0 auto",
   },
 
   greeting: {

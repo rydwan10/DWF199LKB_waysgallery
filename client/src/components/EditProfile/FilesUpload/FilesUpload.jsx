@@ -102,7 +102,12 @@ function File() {
       <div {...getRootProps()}>
         <input {...getInputProps()} />
         {isDragActive ? (
-          <p>Drop the files here ...</p>
+          <img
+            src={UploadPlaceholder}
+            alt="upload placeholder"
+            width="565px"
+            htmlFor="single-file-upload"
+          />
         ) : (
           <>
             <img

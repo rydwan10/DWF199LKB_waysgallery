@@ -1,15 +1,22 @@
-import { Grid } from "@material-ui/core";
-
-import Item from "../Item/Item";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import { Link } from "react-router-dom";
 
 function List({ posts }) {
   return (
     <>
-      <Grid alignContent="center" spacing={3} container justify="center">
-        {posts.map((data) => (
-          <Item key={data.id} data={data} />
-        ))}
-      </Grid>
+      <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}>
+        <Masonry gutter="23px">
+          {posts.map((post, i) => (
+            <Link key={post.id} to={`/post/${post.id}`}>
+              <img
+                src={`http://localhost:5000/uploads/${post.photos[0].image}`}
+                style={{ width: "100%", display: "block" }}
+                alt=""
+              />
+            </Link>
+          ))}
+        </Masonry>
+      </ResponsiveMasonry>
     </>
   );
 }

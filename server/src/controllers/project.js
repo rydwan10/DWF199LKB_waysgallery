@@ -1,3 +1,5 @@
+// const zip = require("express-zip");
+const AdmZip = require("adm-zip");
 const Joi = require("joi");
 const { User, Order, Project, ProjectPhoto } = require("../../models");
 
@@ -143,7 +145,6 @@ exports.addProject = async (req, res) => {
 
 exports.viewProject = async (req, res) => {
   try {
-    console.log(req.params.id);
     const project = await Project.findOne({
       where: {
         orderId: req.params.id,
@@ -179,6 +180,62 @@ exports.viewProject = async (req, res) => {
         project,
       },
     });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send({
+      error: {
+        message: "Server Error",
+      },
+    });
+  }
+};
+
+// TODO download projects endpoint
+
+exports.downloadProject = async (req, res) => {
+  const { id: projectId } = req.params;
+  try {
+    const projectPhoto = await ProjectPhoto.findAll({
+      where: {
+        projectId: projectId,
+      },
+    });
+    if (!projectPhoto) {
+      return res.status(404).send({
+        status: "not found",
+        message: "Project photos with id: " + projectId + " is not found!",
+        data: {
+          projectPhoto: [],
+        },
+      });
+    }
+
+    if (projectPhoto) {
+      const zip = new AdmZip();
+      // projectPhoto.forEach((item) => {
+      //   zip.addLocalFile(`../../uploads/${item.image}`);
+      // });
+      // s
+    }
+
+    // const downloadDirectories = projectPhoto.map((photo) => {
+    //   return {
+    //     path: `http://localhost:5000/uploads/${photo.image}`,
+    //     name: photo.image,
+    //   };
+    // });
+
+    // console.log(downloadDirectories);
+
+    // res.zip(downloadDirectories);
+
+    // res.status(200).send({
+    //   status: "success",
+    //   message: "Data successfully retrieved!",
+    //   data: {
+    //     projectPhoto,
+    //   },
+    // })
   } catch (err) {
     console.log(err);
     return res.status(500).send({

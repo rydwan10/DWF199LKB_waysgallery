@@ -24,6 +24,7 @@ import makeStyles from "./style";
 
 function Navbar() {
   const [state, dispatch] = useContext(AppContext);
+  // console.log(state);
   const StyledMenu = withStyles({
     paper: {
       backgroundColor: "#ffffff",

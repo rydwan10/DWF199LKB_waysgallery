@@ -16,13 +16,14 @@ import Loading from "../Loading/Loading";
 
 function Home() {
   const [posts, setPosts] = useState(null);
+  const [searchPosts, setSearchPosts] = useState(null);
   const [type, setType] = useState("today");
   const [loading, setLoading] = useState(true);
 
   const getPost = async () => {
     try {
       setLoading(true);
-      const response = await API(`/posts`);
+      const response = await API(`/latest-posts`);
       if (response.status === 200) {
         setPosts(response.data.data.posts);
         setLoading(false);
@@ -30,6 +31,15 @@ function Home() {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const handleSearch = (e) => {
+    let filteredPosts = posts.filter(
+      (post) =>
+        post.title.toLowerCase().includes(e.target.value) ||
+        post.user.fullName.toLowerCase().includes(e.target.value)
+    );
+    setSearchPosts(filteredPosts);
   };
 
   useEffect(() => {
@@ -55,11 +65,10 @@ function Home() {
                 onChange={(e) => {
                   setType(e.target.value);
                 }}
-                // className={classes.selectArtist}
                 displayEmpty
               >
                 <MenuItem value="today">Today</MenuItem>
-                <MenuItem value="all">All</MenuItem>
+                <MenuItem value="following">Following</MenuItem>
               </Select>
             </FormControl>
           </Grid>
@@ -69,6 +78,7 @@ function Home() {
               id="input-with-icon-textfield"
               placeholder="search"
               size="small"
+              onChange={handleSearch}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -85,7 +95,7 @@ function Home() {
       </Typography>
 
       {/* <Gallery onClick={(e) => alert(e.target.id)} photos={photoObj} /> */}
-      <WorkList posts={posts} />
+      <WorkList posts={searchPosts ? searchPosts : posts} />
     </Container>
   );
 }

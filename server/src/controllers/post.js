@@ -277,8 +277,68 @@ exports.deletePostById = async (req, res) => {
   }
 };
 
+exports.getLatestPosts = async (req, res) => {
+  try {
+    const posts = await Post.findAll({
+      attributes: {
+        exclude: ["createdAt", "updatedAt", "userId", "UserId"],
+      },
+      include: [
+        {
+          model: User,
+          as: "user",
+          attributes: {
+            exclude: [
+              "userId",
+              "UserId",
+              "password",
+              "avatar",
+              "greeting",
+              "createdAt",
+              "updatedAt",
+            ],
+          },
+        },
+        {
+          model: PostPhoto,
+          as: "photos",
+          attributes: {
+            exclude: ["createdAt", "updatedAt", "postId", "PostId"],
+          },
+        },
+      ],
+      order: [["updatedAt", "DESC"]],
+    });
+
+    if (posts.length === 0) {
+      return res.status(200).send({
+        status: "success",
+        message: "There is no post yet",
+        data: {
+          posts: [],
+        },
+      });
+    }
+
+    res.status(200).send({
+      status: "success",
+      message: "Data successfully retrieved!",
+      data: {
+        posts,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send({
+      error: {
+        message: "Server Error",
+      },
+    });
+  }
+};
+
 // TODO Update Later cause it's complex
-exports.updateArtistById = async (req, res) => {
+exports.updatePostById = async (req, res) => {
   try {
     const { id } = req.params;
     const { body, file } = req;

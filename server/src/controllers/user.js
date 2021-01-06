@@ -124,21 +124,21 @@ exports.updateUserById = async (req, res) => {
       fullName: body.fullName,
     };
 
-    const validationSchema = Joi.object({
-      avatar: Joi.string(),
-      greeting: Joi.string(),
-      fullName: Joi.string(),
-    });
+    // const validationSchema = Joi.object({
+    //   avatar: Joi.string(),
+    //   greeting: Joi.string(),
+    //   fullName: Joi.string(),
+    // });
 
-    const { error } = validationSchema.validate(data, { abortEarly: false });
-    if (error) {
-      return res.status(400).send({
-        status: "Validation Error",
-        error: {
-          message: error.details.map((error) => error.message),
-        },
-      });
-    }
+    // const { error } = validationSchema.validate(data, { abortEarly: false });
+    // if (error) {
+    //   return res.status(400).send({
+    //     status: "Validation Error",
+    //     error: {
+    //       message: error.details.map((error) => error.message),
+    //     },
+    //   });
+    // }
 
     await User.update(data, {
       where: {

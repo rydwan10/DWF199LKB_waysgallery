@@ -29,6 +29,8 @@ function PostDetail() {
   const { id: postId } = useParams();
   const [loading, setLoading] = useState(true);
   const [post, setPost] = useState(null);
+  // eslint-disable-next-line
+  const [highlight, setHighlight] = useState(null);
   const classes = makeStyles();
 
   const handleDelete = async () => {
@@ -38,6 +40,7 @@ function PostDetail() {
       const response = await API.delete("/posts/" + postId);
       if (response.status === 200) {
         setPost(response.data.data.post);
+
         setLoading(false);
         router.push("/");
       }
@@ -94,6 +97,8 @@ function PostDetail() {
       const response = await API("/posts/" + postId);
       if (response.status === 200) {
         setPost(response.data.data.post);
+        setHighlight({ photo: response.data.data.post.photos[0].image });
+
         setLoading(false);
       }
     } catch (err) {
@@ -135,13 +140,19 @@ function PostDetail() {
               <Avatar
                 src={`http://localhost:5000/uploads/${post.user.avatar}`}
                 className={classes.bgAvatar}
+                style={{ cursor: "pointer" }}
+                onClick={() => router.push(`/user/${post.user.id}`)}
               />
             </Grid>
             <Grid item>
               <Typography variant="h5" className={classes.postTitle}>
                 {post.title}
               </Typography>
-              <Typography variant="body1" className={classes.userName}>
+              <Typography
+                onClick={() => router.push(`/user/${post.user.id}`)}
+                variant="body1"
+                className={classes.userName}
+              >
                 {post.user.fullName}
               </Typography>
             </Grid>
@@ -183,11 +194,17 @@ function PostDetail() {
       </Grid>
 
       <div className={classes.imagePreviewContainer}>
-        <img
-          className={classes.imagePreview}
-          src={`http://localhost:5000/uploads/${post.photos[0].image}`}
-          alt="robox"
-        />
+        <div className={classes.highlightContainer}>
+          <img
+            className={classes.imagePreview}
+            src={
+              highlight
+                ? `http://localhost:5000/uploads/${highlight.photo}`
+                : null
+            }
+            alt={highlight ? highlight.photo : "null"}
+          />
+        </div>
       </div>
 
       <div className={classes.thumbnailPreviewContainer}>
@@ -197,6 +214,7 @@ function PostDetail() {
             className={classes.thumbnailPreview}
             src={`http://localhost:5000/uploads/${photo.image}`}
             alt="robox"
+            onClick={() => setHighlight({ photo: photo.image })}
           />
         ))}
       </div>
